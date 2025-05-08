@@ -1,5 +1,6 @@
-import { Text, type TextProps, StyleSheet } from "react-native";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import { Text, type TextProps, StyleSheet } from "react-native";
+
 
 export type LabelProps = TextProps & {
   customTextStyle?: object;

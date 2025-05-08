@@ -81,7 +81,7 @@ const MenuList = () => {
       <Label
         lightColor="black"
         customTextStyle={styles.name}
-        text={`Available: ${item.availableOrderQty}`}
+        text={`Availability: ${item.availableOrderQty}`}
       />
       <AppButton
         title={item.availableOrderQty <= 0 ? "Out of Stock" : "Order"}

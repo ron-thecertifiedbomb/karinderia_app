@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import { useAtom } from "jotai";
 import { orderAtom } from "@/store/orderAtom";
 import { allMenusAtom } from "@/store/menuAtom";
@@ -7,7 +7,9 @@ import Label from "@/components/shared/Label";
 import { fonts } from "@/constants/Fonts";
 import List from "@/components/shared/List";
 import AppButton from "@/components/shared/AppButton";
-import ImageContainer from "@/components/shared/ImageContainer"; 
+import ImageContainer from "@/components/shared/ImageContainer";
+import TotalPrice from "@/components/TotalPrice/TotalPrice";
+
 
 const Orders = () => {
   const [orders, setOrders] = useAtom(orderAtom);
@@ -16,7 +18,7 @@ const Orders = () => {
   const handleDelete = (id: number) => {
     const orderToRemove = orders.find((order) => order.id === id);
     if (!orderToRemove) return;
-
+  
     setMenu((prevMenu) =>
       (prevMenu ?? []).map((menuItem) =>
         menuItem.id === id
@@ -28,53 +30,49 @@ const Orders = () => {
           : menuItem
       )
     );
-
+  
     setOrders((prev) => prev.filter((order) => order.id !== id));
+  
+    // ✅ Alert after successful delete
+    Alert.alert("Order Deleted", `"${orderToRemove.name}" has been removed.`);
   };
-
   const renderOrder = ({ item }: any) => (
     <View style={styles.orderItem}>
-     
-        <ImageContainer
-          source={{ uri: item.image }} 
-          style={styles.orderImage} 
-        />
-     
-
+      <ImageContainer source={{ uri: item.image }} style={styles.orderImage} />
       <Label lightColor="black" customTextStyle={styles.orderName} text={item.name} />
       <Label lightColor="black" customTextStyle={styles.orderText} text={`₱ ${item.price}`} />
       <Label lightColor="black" customTextStyle={styles.orderText} text={`Quantity: ${item.quantity}`} />
       <Label
         lightColor="black"
         customTextStyle={styles.orderText}
-        text={`Date ordered: ${new Date(item.dateOrdered).toLocaleDateString(
-          undefined,
-          {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          }
-        )}`}
+        text={`Date ordered: ${new Date(item.dateOrdered).toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })}`}
       />
-      <AppButton
-        title="Delete Order"
-        onPress={() => handleDelete(item.id)}
-        disabled={false}
-      />
+      <AppButton title="Delete Order" onPress={() => handleDelete(item.id)} disabled={false} />
     </View>
   );
 
   return (
-    <List
-      data={orders}
-      renderItem={renderOrder}
-      title="Your Orders"
-      noDataMessage="No orders placed yet."
-    />
+    <View style={styles.container}>
+      <List
+        data={orders}
+        renderItem={renderOrder}
+        title="Your Orders"
+        noDataMessage="No orders placed yet."
+      />
+      {orders.length > 0 && <TotalPrice />}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
   safeArea: {
     flex: 1,
     backgroundColor: "#fff",
@@ -96,8 +94,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   orderImage: {
-    width: "100%", // Make the image span the full width
-    height: 200, // Set a fixed height (adjust as necessary)
+    width: "100%",
+    height: 200,
     borderRadius: 8,
     marginBottom: 10,
   },

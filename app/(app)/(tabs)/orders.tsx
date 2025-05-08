@@ -25,9 +25,18 @@ const Orders = () => {
 
   const renderOrder = ({ item }: any) => (
     <View style={styles.orderItem}>
-      <Label lightColor="black" customTextStyle={styles.orderText} text={item.name} />
+      <Label lightColor="black" customTextStyle={styles.orderName} text={item.name} />
       <Label lightColor="black" customTextStyle={styles.orderText} text={`₱ ${item.price}`} />
       <Label lightColor="black" customTextStyle={styles.orderText} text={`Quantity: ${item.quantity}`} />
+      <Label
+  lightColor="black"
+  customTextStyle={styles.orderText}
+  text={`Date ordered: ${new Date(item.dateOrdered).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  })}`}
+/>
     </View>
   );
 
@@ -65,6 +74,12 @@ const styles = StyleSheet.create({
   orderText: {
     fontSize: 16,
     marginBottom: 8,
+    
+  },
+  orderName: {
+    fontSize: 16,
+    marginBottom: 8,
+    fontWeight: "bold",
   },
 });
 

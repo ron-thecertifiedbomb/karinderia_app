@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   Button,
-  Alert, // Importing Alert
+  Alert, 
 } from "react-native";
 import { useAtom } from "jotai";
 import { allMenusAtom } from "@/store/menuAtom";
@@ -14,13 +14,16 @@ import useGetAllMenu from "@/hooks/useGetAllMenu";
 import { orderAtom } from "@/store/orderAtom";
 import Label from "../shared/Label";
 import List from "../shared/List";
+import { Menu } from "@/interfaces/menu/menu";
 
 const MenuList = () => {
   const [menu] = useAtom(allMenusAtom);
-  const [orders, setOrders] = useAtom(orderAtom);
+  const [_, setOrders] = useAtom(orderAtom);
   const { loading, error } = useGetAllMenu();
 
-  const handleOrder = (item: any) => {
+  const handleOrder = (item: Menu) => {
+    const now = new Date().toISOString();
+  
     setOrders((prev) => {
       const existing = prev.find((order) => order.id === item.id);
       if (existing) {
@@ -30,15 +33,11 @@ const MenuList = () => {
             : order
         );
       }
-      return [...prev, { ...item, quantity: 1 }];
+  
+      return [...prev, { ...item, quantity: 1, dateOrdered: now }];
     });
-
-    // Display an alert that the item has been added to the order
-    Alert.alert(
-      "Order Added",
-      `${item.name} has been added to your order.`,
-      [{ text: "OK" }]
-    );
+  
+    Alert.alert("Order Added", `${item.name} has been added to your order.`, [{ text: "OK" }]);
   };
 
   const renderItem = ({ item }: any) => (
@@ -59,7 +58,7 @@ const MenuList = () => {
     <List
     data={menu}
     renderItem={renderItem}
-    title="Menu"
+    title="Karinderia Menu"
     noDataMessage="No menu items available."
   />
   );

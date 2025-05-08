@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
-import { allProductsAtom } from "@/store/menuAtom";
-import { Product } from "@/interfaces/products/products"; // Adjust the import based on your structure
+import { allMenusAtom } from "@/store/menuAtom";
+import { Menu } from "@/interfaces/menu/menu";
 
 const useGetAllProducts = () => {
   const URL =
     "https://nextjs-server-rho.vercel.app/api/products/getAllProducts/route";
-  const [, setData] = useAtom(allProductsAtom);
+  const [, setData] = useAtom(allMenusAtom);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null); // Type for error
 
@@ -16,7 +16,7 @@ const useGetAllProducts = () => {
       try {
         const res = await fetch(URL);
         if (!res.ok) throw new Error("Network response was not ok");
-        const resJson: Product[] = await res.json(); // Specify the expected type
+        const resJson: Menu[] = await res.json(); // Specify the expected type
         setData(resJson);
       } catch (error) {
         setError(

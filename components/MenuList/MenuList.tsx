@@ -1,30 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { FlatList, Text, View, StyleSheet } from "react-native";
-
-interface MenuItem {
-  id: number;
-  name: string;
-  price: number;
-  availableOrderQty: number;
-}
+import React from "react";
+import { FlatList, Text, View, StyleSheet, ActivityIndicator } from "react-native";
+import { useAtom } from "jotai";
+import { allMenusAtom } from "@/store/menuAtom";
+import useGetAllMenu from "@/hooks/useGetAllMenu"; // adjust path as needed
 
 const MenuList = () => {
-  const [menu, setMenu] = useState<MenuItem[]>([]);
+  const [menu] = useAtom(allMenusAtom);
+  const { loading, error } = useGetAllMenu();
 
-  useEffect(() => {
-    fetch("http://10.0.2.2:3001/menu") 
-      .then((res) => res.json())
-      .then((data) => setMenu(data))
-      .catch((err) => console.error("Error fetching menu:", err));
-  }, []);
-
-  const renderItem = ({ item }: { item: MenuItem }) => (
+  const renderItem = ({ item }: any) => (
     <View style={styles.item}>
       <Text style={styles.name}>{item.name}</Text>
       <Text>₱{item.price}</Text>
       <Text>Available: {item.availableOrderQty}</Text>
     </View>
   );
+
+  if (loading) return <ActivityIndicator style={styles.centered} size="large" />;
+  if (error) return <Text style={styles.centered}>Error: {error}</Text>;
 
   return (
     <FlatList
@@ -50,6 +43,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 4,
+  },
+  centered: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 32,
+    fontSize: 16,
   },
 });
 

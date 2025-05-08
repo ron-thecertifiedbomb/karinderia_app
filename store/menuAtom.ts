@@ -1,7 +1,7 @@
-import { Product } from "@/interfaces/products/products";
+
+import { Menu } from "@/interfaces/menu/menu";
 import { atom } from "jotai";
 
-export const allMenusAtom = atom<Product[] | null>(null);
+export const allMenusAtom = atom<Menu[] | null>(null);
 
-export const selectedProductsAtom = atom<Product | null>(null);
-// Default to null
+

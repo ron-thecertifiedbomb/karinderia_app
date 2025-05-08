@@ -11,6 +11,12 @@
       "name": "Rice",
       "price": 15,
       "availableOrderQty": 999999
+    },
+    {
+      "id": 2,
+      "name": "Sinigang",
+      "price": 15,
+      "availableOrderQty": 999999
     }
   ],
   "users": [

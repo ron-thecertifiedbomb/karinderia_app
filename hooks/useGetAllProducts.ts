@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
-import { allProductsAtom } from "@/store/productsAtom";
+import { allProductsAtom } from "@/store/menuAtom";
 import { Product } from "@/interfaces/products/products"; // Adjust the import based on your structure
 
 const useGetAllProducts = () => {

@@ -1,0 +1,12 @@
+{
+    "menu": {
+      "adobo": {
+        "price": 70,
+        "availableOrderQty": 10
+      },
+      "rice": {
+        "price": 15,
+        "availableOrderQty": 999999 
+      }
+    }
+}

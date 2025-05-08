@@ -15,6 +15,7 @@ import { orderAtom } from "@/store/orderAtom";
 import Label from "../shared/Label";
 import List from "../shared/List";
 import { Menu } from "@/interfaces/menu";
+import AppButton from "../shared/AppButton";
 
 const MenuList = () => {
 
@@ -59,7 +60,11 @@ const MenuList = () => {
       <Label lightColor="black" customTextStyle={styles.name} text={item.name} />
       <Label lightColor="black" customTextStyle={styles.name} text={`₱ ${item.price}`} />
       <Label lightColor="black" customTextStyle={styles.name} text={`Available: ${item.availableOrderQty}`} />
-      <Button title="Order" onPress={() => handleOrder(item)} />
+      <AppButton
+        title={item.availableOrderQty <= 0 ? "Out of Stock" : "Order"}
+        onPress={() => handleOrder(item)}
+        disabled={item.availableOrderQty <= 0}
+      />
     </View>
   );
 

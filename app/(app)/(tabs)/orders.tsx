@@ -6,16 +6,16 @@ import { allMenusAtom } from "@/store/menuAtom";
 import Label from "@/components/shared/Label";
 import { fonts } from "@/constants/Fonts";
 import List from "@/components/shared/List";
+import AppButton from "@/components/shared/AppButton";
 
 const Orders = () => {
   const [orders, setOrders] = useAtom(orderAtom);
-  const [menu, setMenu] = useAtom(allMenusAtom); // ⬅️ Use menu atom
+  const [menu, setMenu] = useAtom(allMenusAtom);
 
   const handleDelete = (id: number) => {
     const orderToRemove = orders.find((order) => order.id === id);
     if (!orderToRemove) return;
 
-    // 1. Restore quantity back to the menu
     setMenu((prevMenu) =>
       (prevMenu ?? []).map((menuItem) =>
         menuItem.id === id
@@ -24,29 +24,47 @@ const Orders = () => {
               availableOrderQty:
                 (menuItem.availableOrderQty ?? 0) + orderToRemove.quantity,
             }
-          : menuItem
-      )
+          : menuItem,
+      ),
     );
 
-    // 2. Remove from orders
     setOrders((prev) => prev.filter((order) => order.id !== id));
   };
 
   const renderOrder = ({ item }: any) => (
     <View style={styles.orderItem}>
-      <Label lightColor="black" customTextStyle={styles.orderName} text={item.name} />
-      <Label lightColor="black" customTextStyle={styles.orderText} text={`₱ ${item.price}`} />
-      <Label lightColor="black" customTextStyle={styles.orderText} text={`Quantity: ${item.quantity}`} />
+      <Label
+        lightColor="black"
+        customTextStyle={styles.orderName}
+        text={item.name}
+      />
       <Label
         lightColor="black"
         customTextStyle={styles.orderText}
-        text={`Date ordered: ${new Date(item.dateOrdered).toLocaleDateString(undefined, {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })}`}
+        text={`₱ ${item.price}`}
       />
-      <Button title="Delete Order" onPress={() => handleDelete(item.id)} color="#ff5c5c" />
+      <Label
+        lightColor="black"
+        customTextStyle={styles.orderText}
+        text={`Quantity: ${item.quantity}`}
+      />
+      <Label
+        lightColor="black"
+        customTextStyle={styles.orderText}
+        text={`Date ordered: ${new Date(item.dateOrdered).toLocaleDateString(
+          undefined,
+          {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          },
+        )}`}
+      />
+      <AppButton
+        title="Delete Order"
+        onPress={() => handleDelete(item.id)}
+        disabled={false}
+      />
     </View>
   );
 

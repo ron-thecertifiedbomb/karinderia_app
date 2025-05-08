@@ -3,6 +3,7 @@ import { FlatList, Text, View, StyleSheet, ActivityIndicator } from "react-nativ
 import { useAtom } from "jotai";
 import { allMenusAtom } from "@/store/menuAtom";
 import useGetAllMenu from "@/hooks/useGetAllMenu"; // adjust path as needed
+import Label from "../shared/Label";
 
 const MenuList = () => {
   const [menu] = useAtom(allMenusAtom);
@@ -10,9 +11,18 @@ const MenuList = () => {
 
   const renderItem = ({ item }: any) => (
     <View style={styles.item}>
-      <Text style={styles.name}>{item.name}</Text>
-      <Text>₱{item.price}</Text>
-      <Text>Available: {item.availableOrderQty}</Text>
+          <Label   lightColor="black" customTextStyle={styles.name} text={item.name} />
+          <Label
+  lightColor="black"
+  customTextStyle={styles.name}
+  text={`₱ ${item.price}`}
+/>
+<Label
+  lightColor="black"
+  customTextStyle={styles.name}
+  text={`Available: ${item.availableOrderQty}`}
+/>
+      
     </View>
   );
 

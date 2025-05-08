@@ -1,19 +1,56 @@
-import React from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import React, { useState } from "react";
+import { Alert, Button, StyleSheet, View } from "react-native";
 import Container from "@/components/shared/Container";
 import Label from "@/components/shared/Label";
 import { fonts } from "@/constants/Fonts";
 import AppTextInput from "../shared/AppTextInput";
+import { useRouter } from "expo-router";
 
-const Login = () => (
-  <Container>
-    <Label lightColor="grey" customTextStyle={styles.heading4} text="Login Form" />
-    <View style={styles.inputGroup}>
-    <AppTextInput placeholder="Username" autoCapitalize="none" />
-    <AppTextInput placeholder="Password" secureTextEntry />
-    </View>
-  </Container>
-);
+const Login = () => {
+  const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      const res = await fetch(
+        `http://10.0.2.2:3001/users?username=${username}&password=${password}`
+      );
+      const data = await res.json();
+
+      if (data.length > 0) {
+        // Successful login
+        router.replace("/(app)/(tabs)/home");
+      } else {
+        Alert.alert("Error", "Invalid credentials");
+      }
+    } catch (err) {
+      Alert.alert("Error", "Failed to login");
+      console.error(err);
+    }
+  };
+
+  return (
+    <Container>
+      <Label lightColor="grey" customTextStyle={styles.heading4} text="Login Form" />
+      <View style={styles.inputGroup}>
+        <AppTextInput
+          placeholder="Username"
+          autoCapitalize="none"
+          value={username}
+          onChangeText={setUsername}
+        />
+        <AppTextInput
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+        <Button title="Login" onPress={handleLogin} />
+      </View>
+    </Container>
+  );
+};
 
 const styles = StyleSheet.create({
   heading4: {
@@ -25,15 +62,7 @@ const styles = StyleSheet.create({
   inputGroup: {
     gap: 12,
     marginTop: 12,
-    width: 300
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    padding: 10,
-    fontSize: 16,
-    fontFamily: "FS Albert-Regular",
+    width: 300,
   },
 });
 

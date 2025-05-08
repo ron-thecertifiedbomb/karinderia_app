@@ -1,13 +1,11 @@
-import Container from "@/components/shared/Container";
-import Label from "@/components/shared/Label";
+import MenuList from "@/components/MenuList/MenuList";
 import { fonts } from "@/constants/Fonts";
 import { StyleSheet } from "react-native";
 
 const Home = () => (
-  <Container>
-  
-    <Label lightColor="grey" customTextStyle={styles.heading4} text="Home" />
-  </Container>
+  <>
+<MenuList />
+  </>
 );
 
 const styles = StyleSheet.create({

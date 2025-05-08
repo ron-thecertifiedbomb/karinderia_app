@@ -15,7 +15,7 @@ import Label from "../shared/Label";
 import List from "../shared/List";
 import { Menu } from "@/interfaces/menu";
 import AppButton from "../shared/AppButton";
-import ImageContainer from "../shared/ImageContainer"; // Import the ImageContainer component
+import ImageContainer from "../shared/ImageContainer"; 
 
 const MenuList = () => {
   const [_, setOrders] = useAtom(orderAtom);

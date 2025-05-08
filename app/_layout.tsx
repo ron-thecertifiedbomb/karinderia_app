@@ -4,7 +4,7 @@ import { useEffect, Suspense } from "react";
 import "react-native-reanimated";
 import React from "react";
 import { Slot } from "expo-router";
-import { View, Text } from "react-native"; // Import UI components for fallback
+import { View, Text } from "react-native"; 
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,7 +23,7 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
-  // Fallback UI: a loading spinner while fonts load
+ 
   const FallbackUI = () => (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Loading...</Text>

@@ -7,7 +7,7 @@ import Label from "@/components/shared/Label";
 import { fonts } from "@/constants/Fonts";
 import List from "@/components/shared/List";
 import AppButton from "@/components/shared/AppButton";
-import ImageContainer from "@/components/shared/ImageContainer"; // Import your ImageContainer component
+import ImageContainer from "@/components/shared/ImageContainer"; 
 
 const Orders = () => {
   const [orders, setOrders] = useAtom(orderAtom);
@@ -36,8 +36,8 @@ const Orders = () => {
     <View style={styles.orderItem}>
      
         <ImageContainer
-          source={{ uri: item.image }} // Using the image URL from the menu
-          style={styles.orderImage} // Style for the image
+          source={{ uri: item.image }} 
+          style={styles.orderImage} 
         />
      
 

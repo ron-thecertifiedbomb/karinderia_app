@@ -13,6 +13,7 @@ import { allMenusAtom } from "@/store/menuAtom";
 import useGetAllMenu from "@/hooks/useGetAllMenu";
 import { orderAtom } from "@/store/orderAtom";
 import Label from "../shared/Label";
+import List from "../shared/List";
 
 const MenuList = () => {
   const [menu] = useAtom(allMenusAtom);
@@ -52,14 +53,15 @@ const MenuList = () => {
   if (loading) return <ActivityIndicator style={styles.centered} size="large" />;
   if (error) return <Text style={styles.centered}>Error: {error}</Text>;
 
+  if (!menu) return null;
+
   return (
-    <FlatList
-      data={menu}
-      // Ensure unique keys by using a combination of id and name or just item.id if unique
-      keyExtractor={(item) => `${item.id}-${item.name}`} // or just item.id if it's guaranteed unique
-      renderItem={renderItem}
-      contentContainerStyle={styles.list}
-    />
+    <List
+    data={menu}
+    renderItem={renderItem}
+    title="Menu"
+    noDataMessage="No menu items available."
+  />
   );
 };
 

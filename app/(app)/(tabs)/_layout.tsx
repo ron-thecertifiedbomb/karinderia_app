@@ -17,9 +17,9 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="orders"
         options={{
-          title: "Settings",
+          title: "Orders",
           headerShown: false,
           tabBarIcon: ({ color, size }) => <Icon name="settings-outline" size={size} color={color} type="Ionicons" />,
         }}

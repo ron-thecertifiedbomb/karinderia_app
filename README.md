@@ -22,6 +22,7 @@ Edit
 git clone https://github.com/ron-thecertifiedbomb/karinderia_app.git
 
 cd karinderia_app
+
 Install dependencies:
 
 bash

@@ -1,11 +1,12 @@
 import React from "react";
-import { Redirect } from "expo-router";
-import { Platform } from "react-native";
+import Login from "./login";
 
-export default function AppIndex() {
-  if (Platform.OS === "web") {
-    return <Redirect href="/(web)/home" />;
-  } else {
-    return <Redirect href="/(app)/(tabs)/home" />;
-  }
-}
+const AppIndex: React.FC = () => {
+  return (
+    <>
+      <Login />
+    </>
+  );
+};
+
+export default AppIndex;

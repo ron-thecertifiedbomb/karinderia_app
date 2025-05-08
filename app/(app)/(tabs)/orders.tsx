@@ -1,27 +1,18 @@
 import React from "react";
-import { FlatList, Text, View, StyleSheet } from "react-native";
+import {  View, StyleSheet, Button } from "react-native";
 import { useAtom } from "jotai";
-import { orderAtom } from "@/store/orderAtom";  // Adjust the path if necessary
-import { SafeAreaView } from "react-native-safe-area-context";  // Import SafeAreaView
+import { orderAtom } from "@/store/orderAtom";
 import Label from "@/components/shared/Label";
 import { fonts } from "@/constants/Fonts";
 import List from "@/components/shared/List";
 
 const Orders = () => {
-  const [orders] = useAtom(orderAtom);  // Retrieve orders from Jotai atom
+  
+  const [orders, setOrders] = useAtom(orderAtom);
 
-  // If there are no orders, display a message
-  if (orders.length === 0) {
-    return (
-      <SafeAreaView style={styles.safeArea}>
-        <Label
-          lightColor="black"
-          customTextStyle={styles.heading4}
-          text="No orders placed yet."
-        />
-      </SafeAreaView>
-    );
-  }
+  const handleDelete = (id: number) => {
+    setOrders(prev => prev.filter(order => order.id !== id));
+  };
 
   const renderOrder = ({ item }: any) => (
     <View style={styles.orderItem}>
@@ -29,14 +20,15 @@ const Orders = () => {
       <Label lightColor="black" customTextStyle={styles.orderText} text={`₱ ${item.price}`} />
       <Label lightColor="black" customTextStyle={styles.orderText} text={`Quantity: ${item.quantity}`} />
       <Label
-  lightColor="black"
-  customTextStyle={styles.orderText}
-  text={`Date ordered: ${new Date(item.dateOrdered).toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  })}`}
-/>
+        lightColor="black"
+        customTextStyle={styles.orderText}
+        text={`Date ordered: ${new Date(item.dateOrdered).toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })}`}
+      />
+      <Button title="Delete Order" onPress={() => handleDelete(item.id)} color="#ff5c5c" />
     </View>
   );
 
@@ -53,14 +45,14 @@ const Orders = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#fff",  
+    backgroundColor: "#fff",
   },
   heading4: {
     fontSize: 22,
     fontFamily: "FS Albert-Regular",
     lineHeight: fonts.heading.h4.lineHeight,
     marginBottom: 16,
-    marginLeft: 10
+    marginLeft: 10,
   },
   list: {
     padding: 16,
@@ -74,7 +66,6 @@ const styles = StyleSheet.create({
   orderText: {
     fontSize: 16,
     marginBottom: 8,
-    
   },
   orderName: {
     fontSize: 16,

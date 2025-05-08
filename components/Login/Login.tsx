@@ -19,7 +19,7 @@ const Login = () => {
       const data = await res.json();
 
       if (data.length > 0) {
-        // Successful login
+ 
         router.replace("/(app)/(tabs)/home");
       } else {
         Alert.alert("Error", "Invalid credentials");

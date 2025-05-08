@@ -10,13 +10,13 @@
       "id": 2,
       "name": "Rice",
       "price": 15,
-      "availableOrderQty": 999999
+      "availableOrderQty": 20
     },
     {
       "id": 2,
       "name": "Sinigang",
       "price": 15,
-      "availableOrderQty": 999999
+      "availableOrderQty": 10
     }
   ],
   "users": [

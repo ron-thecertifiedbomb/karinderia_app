@@ -17,13 +17,19 @@ import List from "../shared/List";
 import { Menu } from "@/interfaces/menu/menu";
 
 const MenuList = () => {
-  const [menu] = useAtom(allMenusAtom);
+
   const [_, setOrders] = useAtom(orderAtom);
   const { loading, error } = useGetAllMenu();
-
+  const [menu, setMenu] = useAtom(allMenusAtom);
   const handleOrder = (item: Menu) => {
+    if (item.availableOrderQty <= 0) {
+      Alert.alert("Out of Stock", `${item.name} is no longer available.`, [{ text: "OK" }]);
+      return;
+    }
+  
     const now = new Date().toISOString();
   
+    // 1. Update the orderAtom
     setOrders((prev) => {
       const existing = prev.find((order) => order.id === item.id);
       if (existing) {
@@ -33,13 +39,21 @@ const MenuList = () => {
             : order
         );
       }
-  
       return [...prev, { ...item, quantity: 1, dateOrdered: now }];
     });
   
+    setMenu((prevMenu) =>
+      (prevMenu ?? []).map((menuItem) =>
+        menuItem.id === item.id
+          ? {
+              ...menuItem,
+              availableOrderQty: Math.max(0, (menuItem.availableOrderQty ?? 1) - 1),
+            }
+          : menuItem
+      )
+    );
     Alert.alert("Order Added", `${item.name} has been added to your order.`, [{ text: "OK" }]);
   };
-
   const renderItem = ({ item }: any) => (
     <View style={styles.item}>
       <Label lightColor="black" customTextStyle={styles.name} text={item.name} />

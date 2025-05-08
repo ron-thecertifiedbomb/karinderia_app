@@ -14,7 +14,7 @@ import useGetAllMenu from "@/hooks/useGetAllMenu";
 import { orderAtom } from "@/store/orderAtom";
 import Label from "../shared/Label";
 import List from "../shared/List";
-import { Menu } from "@/interfaces/menu/menu";
+import { Menu } from "@/interfaces/menu";
 
 const MenuList = () => {
 

@@ -1,17 +1,35 @@
 import React from "react";
-import {  View, StyleSheet, Button } from "react-native";
+import { View, StyleSheet, Button } from "react-native";
 import { useAtom } from "jotai";
 import { orderAtom } from "@/store/orderAtom";
+import { allMenusAtom } from "@/store/menuAtom";
 import Label from "@/components/shared/Label";
 import { fonts } from "@/constants/Fonts";
 import List from "@/components/shared/List";
 
 const Orders = () => {
-  
   const [orders, setOrders] = useAtom(orderAtom);
+  const [menu, setMenu] = useAtom(allMenusAtom); // ⬅️ Use menu atom
 
   const handleDelete = (id: number) => {
-    setOrders(prev => prev.filter(order => order.id !== id));
+    const orderToRemove = orders.find((order) => order.id === id);
+    if (!orderToRemove) return;
+
+    // 1. Restore quantity back to the menu
+    setMenu((prevMenu) =>
+      (prevMenu ?? []).map((menuItem) =>
+        menuItem.id === id
+          ? {
+              ...menuItem,
+              availableOrderQty:
+                (menuItem.availableOrderQty ?? 0) + orderToRemove.quantity,
+            }
+          : menuItem
+      )
+    );
+
+    // 2. Remove from orders
+    setOrders((prev) => prev.filter((order) => order.id !== id));
   };
 
   const renderOrder = ({ item }: any) => (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { allMenusAtom } from "@/store/menuAtom";
-import { Menu } from "@/interfaces/menu/menu";
+import { Menu } from "@/interfaces/menu";
 
 const useGetAllMenu = () => {
   const URL = "http://10.0.2.2:3001/menu"; 

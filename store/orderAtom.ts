@@ -1,4 +1,4 @@
-import { OrderItem } from "@/interfaces/menu/order";
+import { OrderItem } from "@/interfaces/order";
 import { atom } from "jotai";
 
 

@@ -24,7 +24,9 @@ const MenuList = () => {
 
   const handleOrder = (item: Menu) => {
     if (item.availableOrderQty <= 0) {
-      Alert.alert("Out of Stock", `${item.name} is no longer available.`, [{ text: "OK" }]);
+      Alert.alert("Out of Stock", `${item.name} is no longer available.`, [
+        { text: "OK" },
+      ]);
       return;
     }
 
@@ -37,7 +39,7 @@ const MenuList = () => {
         return prev.map((order) =>
           order.id === item.id
             ? { ...order, quantity: order.quantity + 1 }
-            : order
+            : order,
         );
       }
       return [...prev, { ...item, quantity: 1, dateOrdered: now }];
@@ -48,26 +50,41 @@ const MenuList = () => {
         menuItem.id === item.id
           ? {
               ...menuItem,
-              availableOrderQty: Math.max(0, (menuItem.availableOrderQty ?? 1) - 1),
+              availableOrderQty: Math.max(
+                0,
+                (menuItem.availableOrderQty ?? 1) - 1,
+              ),
             }
-          : menuItem
-      )
+          : menuItem,
+      ),
     );
-    Alert.alert("Order Added", `${item.name} has been added to your order.`, [{ text: "OK" }]);
+    Alert.alert("Order Added", `${item.name} has been added to your order.`, [
+      { text: "OK" },
+    ]);
   };
 
   const renderItem = ({ item }: any) => (
     <View style={styles.item}>
-  
-        <ImageContainer
-          source={{ uri: item.image }} // Using the image URL from the menu
-          style={styles.menuImage}
-        />
-    
+      <ImageContainer
+        source={{ uri: item.image }} // Using the image URL from the menu
+        style={styles.menuImage}
+      />
 
-      <Label lightColor="black" customTextStyle={styles.name} text={item.name} />
-      <Label lightColor="black" customTextStyle={styles.name} text={`₱ ${item.price}`} />
-      <Label lightColor="black" customTextStyle={styles.name} text={`Available: ${item.availableOrderQty}`} />
+      <Label
+        lightColor="black"
+        customTextStyle={styles.name}
+        text={item.name}
+      />
+      <Label
+        lightColor="black"
+        customTextStyle={styles.name}
+        text={`₱ ${item.price}`}
+      />
+      <Label
+        lightColor="black"
+        customTextStyle={styles.name}
+        text={`Available: ${item.availableOrderQty}`}
+      />
       <AppButton
         title={item.availableOrderQty <= 0 ? "Out of Stock" : "Order"}
         onPress={() => handleOrder(item)}
@@ -76,7 +93,8 @@ const MenuList = () => {
     </View>
   );
 
-  if (loading) return <ActivityIndicator style={styles.centered} size="large" />;
+  if (loading)
+    return <ActivityIndicator style={styles.centered} size="large" />;
   if (error) return <Text style={styles.centered}>Error: {error}</Text>;
 
   if (!menu) return null;

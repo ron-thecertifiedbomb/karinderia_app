@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  FlatList,
   Text,
   View,
   StyleSheet,
@@ -32,7 +31,6 @@ const MenuList = () => {
 
     const now = new Date().toISOString();
 
-    // 1. Update the orderAtom
     setOrders((prev) => {
       const existing = prev.find((order) => order.id === item.id);
       if (existing) {
@@ -66,7 +64,7 @@ const MenuList = () => {
   const renderItem = ({ item }: any) => (
     <View style={styles.item}>
       <ImageContainer
-        source={{ uri: item.image }} // Using the image URL from the menu
+        source={{ uri: item.image }} 
         style={styles.menuImage}
       />
 

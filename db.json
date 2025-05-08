@@ -1,0 +1,19 @@
+{
+  "menu": [
+    {
+      "id": 1,
+      "name": "Adobo",
+      "price": 70,
+      "availableOrderQty": 10
+    },
+    {
+      "id": 2,
+      "name": "Rice",
+      "price": 15,
+      "availableOrderQty": 999999
+    }
+  ],
+  "users": [
+    { "id": 1, "username": "ronan", "password": "123456" }
+  ]
+}

@@ -5,7 +5,7 @@ import Label from "@/components/shared/Label";
 const HomeScreen: React.FC = () => {
   return (
     <Container>
-      <Label lightColor="grey" text="Home" />
+      <Label lightColor="grey" text="Karinderia App Website" />
     </Container>
   );
 };  

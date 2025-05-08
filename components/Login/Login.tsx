@@ -32,7 +32,7 @@ const Login = () => {
 
   return (
     <Container>
-      <Label lightColor="grey" customTextStyle={styles.heading4} text="Login Form" />
+      <Label lightColor="grey" customTextStyle={styles.heading4} text="User Login" />
       <View style={styles.inputGroup}>
         <AppTextInput
           placeholder="Username"

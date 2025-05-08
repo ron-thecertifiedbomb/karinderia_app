@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Button } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useAtom } from "jotai";
 import { orderAtom } from "@/store/orderAtom";
 import { allMenusAtom } from "@/store/menuAtom";
@@ -7,6 +7,7 @@ import Label from "@/components/shared/Label";
 import { fonts } from "@/constants/Fonts";
 import List from "@/components/shared/List";
 import AppButton from "@/components/shared/AppButton";
+import ImageContainer from "@/components/shared/ImageContainer"; // Import your ImageContainer component
 
 const Orders = () => {
   const [orders, setOrders] = useAtom(orderAtom);
@@ -24,8 +25,8 @@ const Orders = () => {
               availableOrderQty:
                 (menuItem.availableOrderQty ?? 0) + orderToRemove.quantity,
             }
-          : menuItem,
-      ),
+          : menuItem
+      )
     );
 
     setOrders((prev) => prev.filter((order) => order.id !== id));
@@ -33,21 +34,16 @@ const Orders = () => {
 
   const renderOrder = ({ item }: any) => (
     <View style={styles.orderItem}>
-      <Label
-        lightColor="black"
-        customTextStyle={styles.orderName}
-        text={item.name}
-      />
-      <Label
-        lightColor="black"
-        customTextStyle={styles.orderText}
-        text={`₱ ${item.price}`}
-      />
-      <Label
-        lightColor="black"
-        customTextStyle={styles.orderText}
-        text={`Quantity: ${item.quantity}`}
-      />
+     
+        <ImageContainer
+          source={{ uri: item.image }} // Using the image URL from the menu
+          style={styles.orderImage} // Style for the image
+        />
+     
+
+      <Label lightColor="black" customTextStyle={styles.orderName} text={item.name} />
+      <Label lightColor="black" customTextStyle={styles.orderText} text={`₱ ${item.price}`} />
+      <Label lightColor="black" customTextStyle={styles.orderText} text={`Quantity: ${item.quantity}`} />
       <Label
         lightColor="black"
         customTextStyle={styles.orderText}
@@ -57,7 +53,7 @@ const Orders = () => {
             year: "numeric",
             month: "short",
             day: "numeric",
-          },
+          }
         )}`}
       />
       <AppButton
@@ -98,6 +94,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     backgroundColor: "#f2f2f2",
     borderRadius: 8,
+  },
+  orderImage: {
+    width: "100%", // Make the image span the full width
+    height: 200, // Set a fixed height (adjust as necessary)
+    borderRadius: 8,
+    marginBottom: 10,
   },
   orderText: {
     fontSize: 16,

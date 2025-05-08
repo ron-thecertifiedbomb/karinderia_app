@@ -5,8 +5,7 @@ import {
   View,
   StyleSheet,
   ActivityIndicator,
-  Button,
-  Alert, 
+  Alert,
 } from "react-native";
 import { useAtom } from "jotai";
 import { allMenusAtom } from "@/store/menuAtom";
@@ -16,20 +15,21 @@ import Label from "../shared/Label";
 import List from "../shared/List";
 import { Menu } from "@/interfaces/menu";
 import AppButton from "../shared/AppButton";
+import ImageContainer from "../shared/ImageContainer"; // Import the ImageContainer component
 
 const MenuList = () => {
-
   const [_, setOrders] = useAtom(orderAtom);
   const { loading, error } = useGetAllMenu();
   const [menu, setMenu] = useAtom(allMenusAtom);
+
   const handleOrder = (item: Menu) => {
     if (item.availableOrderQty <= 0) {
       Alert.alert("Out of Stock", `${item.name} is no longer available.`, [{ text: "OK" }]);
       return;
     }
-  
+
     const now = new Date().toISOString();
-  
+
     // 1. Update the orderAtom
     setOrders((prev) => {
       const existing = prev.find((order) => order.id === item.id);
@@ -42,7 +42,7 @@ const MenuList = () => {
       }
       return [...prev, { ...item, quantity: 1, dateOrdered: now }];
     });
-  
+
     setMenu((prevMenu) =>
       (prevMenu ?? []).map((menuItem) =>
         menuItem.id === item.id
@@ -55,8 +55,16 @@ const MenuList = () => {
     );
     Alert.alert("Order Added", `${item.name} has been added to your order.`, [{ text: "OK" }]);
   };
+
   const renderItem = ({ item }: any) => (
     <View style={styles.item}>
+  
+        <ImageContainer
+          source={{ uri: item.image }} // Using the image URL from the menu
+          style={styles.menuImage}
+        />
+    
+
       <Label lightColor="black" customTextStyle={styles.name} text={item.name} />
       <Label lightColor="black" customTextStyle={styles.name} text={`₱ ${item.price}`} />
       <Label lightColor="black" customTextStyle={styles.name} text={`Available: ${item.availableOrderQty}`} />
@@ -75,11 +83,11 @@ const MenuList = () => {
 
   return (
     <List
-    data={menu}
-    renderItem={renderItem}
-    title="Karinderia Menu"
-    noDataMessage="No menu items available."
-  />
+      data={menu}
+      renderItem={renderItem}
+      title="Karinderia Menu"
+      noDataMessage="No menu items available."
+    />
   );
 };
 
@@ -104,6 +112,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 32,
     fontSize: 16,
+  },
+  menuImage: {
+    width: "100%", // Full width of the container
+    height: 200, // Fixed height (can be adjusted)
+    borderRadius: 8,
+    marginBottom: 10,
   },
 });
 

@@ -1,50 +1,71 @@
-# Welcome to your Expo app 👋
+Welcome to Karinderia Mobile App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+🚀 Getting Started
+📦 Prerequisites
+Before running this project, ensure the following are installed:
 
-1. Install dependencies
+Node.js (v18+ recommended)
 
-   ```bash
-   npm install
-   ```
+Yarn or npm
 
-2. Start the app
+Expo CLI
 
-   ```bash
-    npx expo start
-   ```
+json-server (used to simulate a backend)
 
-In the output, you'll find options to open the app in a
+🛠️ Installation
+Clone the repository:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+bash
+Copy
+Edit
+git clone https://github.com/ron-thecertifiedbomb/karinderia_app.git
+cd your-repo
+Install dependencies:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+bash
+Copy
+Edit
+yarn install
+# or
+npm install
+Install json-server globally (if not installed):
 
-## Get a fresh project
+bash
+Copy
+Edit
+npm install -g json-server
+🧾 Starting the Fake API Server
+Make sure the db.json file exists in the root directory (contains menu, users, etc.)
 
-When you're ready, run:
+Run the server:
 
-```bash
-npm run reset-project
-```
+bash
+Copy
+Edit
+json-server --watch db.json --port 3001
+This will start the API at: http://localhost:3001
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+📱 Running the App
+To start the Expo development server:
 
-## Learn more
+bash
+Copy
+Edit
+yarn start
+# or
+npm start
+Open Expo Go app on your device and scan the QR code, or
 
-To learn more about developing your project with Expo, look at the following resources:
+Press i to open on iOS simulator (Mac only)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Press a to open on Android emulator
 
-## Join the community
+🧪 Optional: Clear Cache
+If you encounter issues:
 
-Join our community of developers creating universal apps.
+bash
+Copy
+Edit
+expo start -c
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.

@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, View, StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context"; 
 import Label from "@/components/shared/Label";
 import { fonts } from "@/constants/Fonts";

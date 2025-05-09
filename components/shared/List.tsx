@@ -6,14 +6,14 @@ import { fonts } from "@/constants/Fonts";
 import Container from "./Container";
 import { Menu } from "@/interfaces/menu";
 
-interface ListProps {
-  data: Menu[];
-  renderItem: (item: any) => JSX.Element;
+interface ListProps<T> {
+  data: T[];
+  renderItem: (info: { item: T }) => JSX.Element;
   title: string;
   noDataMessage: string;
 }
 
-const List = ({ data, renderItem, title, noDataMessage }: ListProps) => {
+const List = <T,>({ data, renderItem, title, noDataMessage }: ListProps<T>) => {
   if (data.length === 0) {
     return (
       <Container customStyle={styles.container}>

@@ -1,8 +1,9 @@
 import React from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Label from "@/components/shared/Label";
 import { fonts } from "@/constants/Fonts";
+import Container from "./Container";
 
 interface ListProps {
   data: any[];
@@ -14,23 +15,25 @@ interface ListProps {
 const List = ({ data, renderItem, title, noDataMessage }: ListProps) => {
   if (data.length === 0) {
     return (
-      <>
+      <Container customStyle={styles.container}>
         <Label
           lightColor="black"
           customTextStyle={styles.heading4}
           text={noDataMessage}
         />
-      </>
+      </Container>
     );
   }
 
   return (
     <>
-      <Label
+    <View>
+        <Label
         lightColor="black"
         customTextStyle={styles.heading4}
         text={title}
       />
+    </View>
       <FlatList
         data={data}
         keyExtractor={(item, index) => index.toString()}
@@ -48,11 +51,16 @@ const styles = StyleSheet.create({
     fontFamily: "FS Albert-Regular",
     lineHeight: fonts.heading.h4.lineHeight,
     marginBottom: 16,
+    fontWeight: 'bold',
     marginLeft: 10,
+    textAlign: 'center'
   },
   list: {
     padding: 16,
   },
+  container: {
+    padding: 0
+  }
 });
 
 export default List;

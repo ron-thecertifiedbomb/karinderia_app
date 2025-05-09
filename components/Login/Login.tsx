@@ -39,12 +39,7 @@ const handleLogin = async () => {
     }
 
     const result = await response.json();
-    console.log("result", result);
-
-
     setFormData(result);
-
-   
     Alert.alert(
       "Login Successful",
       result.message,

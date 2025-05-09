@@ -101,7 +101,7 @@ const MenuList = () => {
     <List
       data={menu}
       renderItem={renderItem}
-      title="Karinderia Menu"
+      title="Menu"
       noDataMessage="No menu items available."
     />
   );

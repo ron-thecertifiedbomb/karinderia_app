@@ -4,7 +4,7 @@ import { allMenusAtom } from "@/store/menuAtom";
 import { Menu } from "@/interfaces/menu";
 
 const useGetAllMenu = () => {
-  const URL = "http://10.0.2.2:3001/menu"; 
+  const URL = "https://nextjs-server-rho.vercel.app/api/karinderia/getAllMenu/route"; 
   const [, setData] = useAtom(allMenusAtom);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

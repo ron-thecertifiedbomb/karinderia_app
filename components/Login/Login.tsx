@@ -12,37 +12,68 @@ import { FormLogInData } from "@/interfaces/authenticate";
 
 const Login = () => {
   const router = useRouter();
-       const [_, setFormData ]= useAtom(authenticateAtom);
+  const [_, setFormData] = useAtom(authenticateAtom);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
- const URL = "https://nextjs-server-rho.vercel.app/api/users/authenticate/route"; 
+  const URL =
+    "https://nextjs-server-rho.vercel.app/api/users/authenticate/route";
 
-  const payLoad: FormLogInData = { username, password, timeCreated, isLoggedIn: true };
-
-  const handleLogin = async () => {
-         try {
-               const response = await fetch(URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payLoad),
-      });
-
-      if (!response.ok) {throw new Error('Failed to authenticate');}
-     const result = await response.json();
-     setFormData(payLoad)
-      Alert.alert("Success");
-      return result;
-
-          } catch (err) {
-      Alert.alert("Error", "Failed to login");
-      console.error(err);
-    }
+  const payLoad: FormLogInData = {
+    username,
+    password,
+    timeCreated,
+    isLoggedIn: true,
   };
+
+const handleLogin = async () => {
+  try {
+    const response = await fetch(URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payLoad),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to authenticate");
+    }
+
+    const result = await response.json();
+    console.log("result", result);
+
+
+    setFormData(result);
+
+   
+    Alert.alert(
+      "Login Successful",
+      result.message,
+      [
+        {
+          text: "OK",
+          onPress: () => {
+          
+            router.replace("/(app)/(tabs)/home");
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+
+    return result;
+  } catch (err) {
+    console.error("Login error:", err);
+    Alert.alert("Error", "Failed to login");
+  }
+};
 
   return (
     <Container>
-      <Label lightColor="grey" customTextStyle={styles.heading4} text="User Login" />
+      <Label
+        lightColor="grey"
+        customTextStyle={styles.heading4}
+        text="User Login"
+      />
       <View style={styles.inputGroup}>
         <AppTextInput
           placeholder="Username"

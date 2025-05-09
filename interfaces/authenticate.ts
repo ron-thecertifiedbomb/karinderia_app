@@ -1,7 +1,21 @@
-  export interface FormLogInData {
+export interface FormLogInData {
+  username: string;
+  firstName?: string;
+  lastname?: string;
+  password: string;
+  isLoggedIn?: boolean;
+  lastLoggedIn?: string;
+  timeCreated?: string;
+}
 
-    username: string;
-    password: string;
-    isLoggedIn: boolean;
-    timeCreated: string;
-  }
+
+
+export interface User {
+  username?: string;
+  firstName?: string;
+  lastname?: string;
+  password?: string;
+  isLoggedIn?: boolean;
+  lastLoggedIn?: string;
+
+}

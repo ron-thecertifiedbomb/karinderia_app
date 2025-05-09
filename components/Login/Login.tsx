@@ -5,26 +5,36 @@ import Label from "@/components/shared/Label";
 import { fonts } from "@/constants/Fonts";
 import AppTextInput from "../shared/AppTextInput";
 import { useRouter } from "expo-router";
+import { authenticateAtom } from "@/store/authenticateAtom";
+import { useAtom } from "jotai";
+import { timeCreated } from "@/utilities/util";
+import { FormLogInData } from "@/interfaces/authenticate";
 
 const Login = () => {
   const router = useRouter();
+       const [_, setFormData ]= useAtom(authenticateAtom);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
-    try {
-      const res = await fetch(
-        `http://10.0.2.2:3001/users?username=${username}&password=${password}`
-      );
-      const data = await res.json();
+ const URL = "https://nextjs-server-rho.vercel.app/api/users/authenticate/route"; 
 
-      if (data.length > 0) {
- 
-        router.replace("/(app)/(tabs)/home");
-      } else {
-        Alert.alert("Error", "Invalid credentials");
-      }
-    } catch (err) {
+  const payLoad: FormLogInData = { username, password, timeCreated, isLoggedIn: true };
+
+  const handleLogin = async () => {
+         try {
+               const response = await fetch(URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payLoad),
+      });
+
+      if (!response.ok) {throw new Error('Failed to authenticate');}
+     const result = await response.json();
+     setFormData(payLoad)
+      Alert.alert("Success");
+      return result;
+
+          } catch (err) {
       Alert.alert("Error", "Failed to login");
       console.error(err);
     }

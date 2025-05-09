@@ -60,8 +60,7 @@ const MenuList = () => {
       { text: "OK" },
     ]);
   };
-
-  const renderItem = ({ item }: any) => (
+const renderItem = ({ item }: { item: Menu }) => (
     <View style={styles.item}>
       <ImageContainer
         source={{ uri: item.image }} 

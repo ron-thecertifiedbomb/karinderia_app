@@ -9,6 +9,8 @@ import List from "@/components/shared/List";
 import AppButton from "@/components/shared/AppButton";
 import ImageContainer from "@/components/shared/ImageContainer";
 import TotalPrice from "@/components/TotalPrice/TotalPrice";
+import { Menu } from "@/interfaces/menu";
+import { OrderItem } from "@/interfaces/order";
 
 
 const Orders = () => {
@@ -36,7 +38,8 @@ const Orders = () => {
     // ✅ Alert after successful delete
     Alert.alert("Order Deleted", `"${orderToRemove.name}" has been removed.`);
   };
-  const renderOrder = ({ item }: any) => (
+
+  const renderOrder = ({ item }: { item: OrderItem }) => (
     <View style={styles.orderItem}>
       <ImageContainer source={{ uri: item.image }} style={styles.orderImage} />
       <Label lightColor="black" customTextStyle={styles.orderName} text={item.name} />

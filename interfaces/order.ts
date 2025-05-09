@@ -1,8 +1,6 @@
-export interface OrderItem {
-    id: number;
-    name: string;
-    image:             string;
-    price: number;
-    quantity: number;
-    dateOrdered?: string; 
-  }
+import { Menu } from "./menu";
+
+export interface OrderItem extends Menu {
+  quantity: number;
+  dateOrdered: string;
+}

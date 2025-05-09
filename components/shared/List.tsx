@@ -4,9 +4,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Label from "@/components/shared/Label";
 import { fonts } from "@/constants/Fonts";
 import Container from "./Container";
+import { Menu } from "@/interfaces/menu";
 
 interface ListProps {
-  data: any[];
+  data: Menu[];
   renderItem: (item: any) => JSX.Element;
   title: string;
   noDataMessage: string;

@@ -25,7 +25,7 @@ const Home = () => {
   };
 
 
-  console.log(payLoad)
+  console.log(user)
 
   const confirmAndLogout = () => {
   Alert.alert(

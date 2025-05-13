@@ -12,7 +12,7 @@ import { router } from "expo-router";
 import { timeCreated } from "@/utilities/util";
 import useGetAllMenu from "@/hooks/useGetAllMenu";
 import { allMenusAtom, isLoadingAtom } from "@/store/menuAtom";
-import Modal from "@/components/Modal/Modal";
+
 
 const Home = () => {
 

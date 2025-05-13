@@ -15,12 +15,13 @@ import { allMenusAtom, isLoadingAtom } from "@/store/menuAtom";
 import Modal from "@/components/Modal/Modal";
 
 const Home = () => {
+
   const { error } = useGetAllMenu();
   const setMenu = useSetAtom(allMenusAtom);
   const [user, setUser] = useAtom(authenticateAtom);
   const URL = "https://nextjs-server-rho.vercel.app/api/users/logout/route";
 
-  const [loading, setLoading] = useAtom(isLoadingAtom);
+  const setLoading = useSetAtom(isLoadingAtom);
 
   const payLoad: User = {
     username: user?.username ?? "",
@@ -49,17 +50,14 @@ const Home = () => {
 const handleLogOut = async () => {
   try {
     setLoading(true);
-
     const response = await fetch(URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payLoad),
     });
-
     if (!response.ok) {
       throw new Error("Failed to logout");
     }
-
     setMenu(null);
     setUser(null);
     router.replace("/");

@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { useAtom } from "jotai";
 import { allMenusAtom } from "@/store/menuAtom";
-import useGetAllMenu from "@/hooks/useGetAllMenu";
 import { orderAtom } from "@/store/orderAtom";
 import Label from "../shared/Label";
 import List from "../shared/List";
@@ -18,8 +17,8 @@ import ImageContainer from "../shared/ImageContainer";
 
 const MenuList = () => {
   const [_, setOrders] = useAtom(orderAtom);
-  const { loading, error } = useGetAllMenu();
   const [menu, setMenu] = useAtom(allMenusAtom);
+
 
   const handleOrder = (item: Menu) => {
     if (item.availableOrderQty <= 0) {
@@ -90,9 +89,6 @@ const renderItem = ({ item }: { item: Menu }) => (
     </View>
   );
 
-  if (loading)
-    return <ActivityIndicator style={styles.centered} size="large" />;
-  if (error) return <Text style={styles.centered}>Error: {error}</Text>;
 
   if (!menu) return null;
 

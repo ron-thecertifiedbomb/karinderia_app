@@ -6,12 +6,14 @@ import { fonts } from "@/constants/Fonts";
 import AppTextInput from "../shared/AppTextInput";
 import { useRouter } from "expo-router";
 import { authenticateAtom } from "@/store/authenticateAtom";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { timeCreated } from "@/utilities/util";
 import { FormLogInData } from "@/interfaces/authenticate";
+import { isLoadingAtom } from "@/store/menuAtom";
 
 const Login = () => {
   const router = useRouter();
+    const setLoading = useSetAtom(isLoadingAtom);
   const [_, setFormData] = useAtom(authenticateAtom);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -28,6 +30,7 @@ const Login = () => {
 
 const handleLogin = async () => {
   try {
+        setLoading(true)
     const response = await fetch(URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -35,26 +38,13 @@ const handleLogin = async () => {
     });
 
     if (!response.ok) {
+          setLoading(false)
       throw new Error("Failed to authenticate");
+
     }
-
     const result = await response.json();
+    router.replace("/(app)/(tabs)/home");
     setFormData(result);
-    Alert.alert(
-      "Login Successful",
-      result.message,
-      [
-        {
-          text: "OK",
-          onPress: () => {
-          
-            router.replace("/(app)/(tabs)/home");
-          },
-        },
-      ],
-      { cancelable: false }
-    );
-
     return result;
   } catch (err) {
     console.error("Login error:", err);

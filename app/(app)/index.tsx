@@ -1,16 +1,8 @@
-import Login from "@/components/Login/Login";
-import { Redirect } from "expo-router";
 import React from "react";
-import { Platform } from "react-native";
-
+import Login from "@/components/Login/Login";
 
 const AppIndex: React.FC = () => {
-
-  return (
-    <>
-      <Login />
-    </>
-  );
+  return <Login />;
 };
 
 export default AppIndex;

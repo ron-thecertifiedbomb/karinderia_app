@@ -13,9 +13,6 @@ import { timeCreated } from "@/utilities/util";
 
 const Home = () => {
   const [user, setUser] = useAtom(authenticateAtom);
-
-
-
   const URL = "https://nextjs-server-rho.vercel.app/api/users/logout/route";
 
   const payLoad: User = {
@@ -24,8 +21,6 @@ const Home = () => {
     isLoggedIn: false,
   };
 
-
-  console.log(user)
 
   const confirmAndLogout = () => {
   Alert.alert(
@@ -38,7 +33,7 @@ const Home = () => {
       },
       {
         text: "OK",
-        onPress: handleLogOut, // call the API only if user confirms
+        onPress: handleLogOut, 
       },
     ],
     { cancelable: true }

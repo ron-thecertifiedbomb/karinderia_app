@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, Button, StyleSheet, View } from "react-native";
+import { Alert, Button, StyleSheet, View, Keyboard } from "react-native";
 import Container from "@/components/shared/Container";
 import Label from "@/components/shared/Label";
 import { fonts } from "@/constants/Fonts";
@@ -29,6 +29,8 @@ const Login = () => {
   };
 
 const handleLogin = async () => {
+
+   Keyboard.dismiss(); 
   try {
         setLoading(true)
     const response = await fetch(URL, {

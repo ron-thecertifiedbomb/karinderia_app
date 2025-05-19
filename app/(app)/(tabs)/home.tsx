@@ -60,7 +60,7 @@ const handleLogOut = async () => {
     }
     setMenu(null);
     setUser(null);
-    router.replace("/");
+    router.replace("/(auth)");
   } catch (err) {
     console.error("Logout error:", err);
     Alert.alert("Logout failed", "Please try again later.");

@@ -1,8 +1,15 @@
 import React from "react";
-import Login from "@/components/Login/Login";
+import { Redirect } from "expo-router";
+import { useAtom } from "jotai";
+import { authenticateAtom } from "@/store/authenticateAtom";
 
-const AppIndex: React.FC = () => {
-  return <Login />;
-};
+export default function RootIndex() {
+  const [user] = useAtom(authenticateAtom);
 
-export default AppIndex;
+  if (!user?.isLoggedIn) {
+    return <Redirect href="/(auth)" />
+  }
+
+  return <Redirect href='/(tabs)/home' />;
+
+}

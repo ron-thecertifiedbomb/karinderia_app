@@ -1,15 +1,9 @@
 import React from "react";
 import Icon from "@/components/shared/Icon";
-import { Redirect, Tabs } from "expo-router";
-import { authenticateAtom } from "@/store/authenticateAtom";
-import { useAtom } from "jotai";
+import {  Tabs } from "expo-router";
+
 
 export default function TabsLayout() {
-  const [user,_] = useAtom(authenticateAtom);
-
-  if (!user?.isLoggedIn) {
-    return <Redirect href="/(app)" />;
-  }
 
   return (
     <Tabs

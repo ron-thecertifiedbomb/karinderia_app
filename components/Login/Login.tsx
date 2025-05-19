@@ -10,6 +10,7 @@ import { useAtom, useSetAtom } from "jotai";
 import { timeCreated } from "@/utilities/util";
 import { FormLogInData } from "@/interfaces/authenticate";
 import { isLoadingAtom } from "@/store/menuAtom";
+import AppButton from "../shared/AppButton";
 
 const Login = () => {
   const router = useRouter();
@@ -55,7 +56,7 @@ const handleLogin = async () => {
 };
 
   return (
-    <Container>
+    <Container style={styles.containerCustomStyle}>
       <Label
         lightColor="grey"
         customTextStyle={styles.heading4}
@@ -74,13 +75,20 @@ const handleLogin = async () => {
           value={password}
           onChangeText={setPassword}
         />
-        <Button title="Login" onPress={handleLogin} />
+        <AppButton title="Login" onPress={handleLogin} />
       </View>
     </Container>
   );
 };
 
 const styles = StyleSheet.create({
+  containerCustomStyle: {
+    display: 'flex',
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent:"center",
+    width: '100%',
+  },
   heading4: {
     fontSize: 22,
     fontFamily: "FS Albert-Regular",

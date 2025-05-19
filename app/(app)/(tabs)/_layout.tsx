@@ -5,11 +5,6 @@ import { authenticateAtom } from "@/store/authenticateAtom";
 import { useAtom } from "jotai";
 
 export default function TabsLayout() {
-  const [user,_] = useAtom(authenticateAtom);
-
-  if (!user?.isLoggedIn) {
-    return <Redirect href="/(app)" />;
-  }
 
   return (
     <Tabs

@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Button, Alert } from "react-native";
+import { View, StyleSheet} from "react-native";
 import { useRouter } from "expo-router";
 import AppTextInput from "@/components/shared/AppTextInput";
 import Container from "@/components/shared/Container";
 import Label from "@/components/shared/Label";
 import AppButton from "../shared/AppButton";
 import AppDropdown from "../shared/AppDropDown";
-import { useAtom, useSetAtom } from "jotai";
+import {  useSetAtom } from "jotai";
 import { registrationAtom } from "@/store/registration";
 import { FormData } from "@/interfaces/registration";
 import AppBirthdayDropdown from "../shared/AppBirthdayDropdown";
-import { genderList } from "./data";
+import { genderList } from "./constant";
 
-export default function Register() {
+export default function RegisterationForm() {
 
   const router = useRouter();
 

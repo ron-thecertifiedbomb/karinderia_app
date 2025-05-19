@@ -5,6 +5,7 @@ import { useRouter } from "expo-router";
 import AppTextInput from "@/components/shared/AppTextInput";
 import Container from "@/components/shared/Container";
 import Label from "@/components/shared/Label";
+import AppButton from "../shared/AppButton";
 
 export default function Register() {
   const router = useRouter();
@@ -18,9 +19,9 @@ export default function Register() {
     }
 
     try {
-      // Replace with your actual registration logic
+     
       Alert.alert("Success", "Registration complete!");
-      router.replace("/(app)/")
+      router.replace("/(app)/");
     } catch (err) {
       console.error(err);
       Alert.alert("Error", "Registration failed.");
@@ -29,11 +30,25 @@ export default function Register() {
 
   return (
     <Container>
-      <Label text="Register" customTextStyle={styles.heading} lightColor="grey" />
+      <Label
+        text="Register"
+        customTextStyle={styles.heading}
+        lightColor="grey"
+      />
       <View style={styles.inputGroup}>
-        <AppTextInput placeholder="Username" value={username} onChangeText={setUsername} />
-        <AppTextInput placeholder="Password" secureTextEntry value={password} onChangeText={setPassword} />
-        <Button title="Register" onPress={handleRegister} />
+        <AppTextInput
+          placeholder="Username"
+          value={username}
+          onChangeText={setUsername}
+        />
+        <AppTextInput
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+
+        <AppButton title="Register" onPress={handleRegister} />
       </View>
     </Container>
   );

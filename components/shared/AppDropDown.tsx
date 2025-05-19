@@ -37,11 +37,11 @@ export default AppDropdown;
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 12,
+    marginBottom: 20,
   },
   label: {
     fontSize: 16,
-    fontWeight: "500",
+    marginBottom: 12,
   },
   pickerWrapper: {
     borderWidth: 1,

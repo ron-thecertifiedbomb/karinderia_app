@@ -18,20 +18,23 @@ const AppTextInput: React.FC<AppTextInputProps> = ({ style, label, error, ...res
         ]}
         {...rest}
       />
-      {error && (
+      <View style={styles.errorWrapper}>
+       {error && (
         <Label
           text={error}
           type="default"
           customTextStyle={styles.errorText}
         />
       )}
+      </View>
+     
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginBottom: 16,
+    marginBottom: 1,
   },
   labelSpacing: {
     marginBottom: 4,
@@ -46,6 +49,13 @@ const styles = StyleSheet.create({
   },
   inputError: {
     borderColor: "#e63946",
+  },
+    errorWrapper: {
+    color: "#e63946",
+    fontSize: 13,
+    height: 32,
+    paddingLeft: 5
+
   },
   errorText: {
     color: "#e63946",

@@ -47,18 +47,15 @@ const AppBirthdayDropdown: React.FC<Props> = ({
   const currentYear = new Date().getFullYear();
   const years = generateNumberOptions(currentYear - 100, currentYear).reverse();
 
-  // Find the label (month name) for the currently selected month number
-  const selectedMonthLabel = months.find(m => Number(m.value) === selectedMonth)?.value || "1";
-
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <View style={styles.column}>
           <AppDropdown
             label="Month"
-            selectedValue={selectedMonth.toString()} // pass the month number as string
+            selectedValue={selectedMonth.toString()}
             onValueChange={(value) => onMonthChange(Number(value))}
-            options={months} // label: month name, value: month number as string
+            options={months}
           />
         </View>
         <View style={styles.columnDay}>

@@ -74,6 +74,7 @@ export default function Register() {
           placeholder="First name"
           value={firstName}
           onChangeText={setFirstName}
+ 
         />
         <AppTextInput
           placeholder="Last name"
@@ -90,6 +91,7 @@ export default function Register() {
           secureTextEntry
           value={password}
           onChangeText={setPassword}
+        
         />
         <AppDropdown
           selectedValue={gender}
@@ -135,8 +137,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   inputGroup: {
-    gap: 12,
-    marginTop: 12,
     width: "100%",
   },
 });

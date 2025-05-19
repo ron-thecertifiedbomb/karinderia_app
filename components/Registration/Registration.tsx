@@ -6,26 +6,48 @@ import AppTextInput from "@/components/shared/AppTextInput";
 import Container from "@/components/shared/Container";
 import Label from "@/components/shared/Label";
 import AppButton from "../shared/AppButton";
+import AppDropdown from "../shared/AppDropDown";
+import { useAtom, useSetAtom } from "jotai";
+import { registrationAtom } from "@/store/registration";
+import { FormData } from "@/interfaces/registration";
 
 export default function Register() {
   const router = useRouter();
-  const [username, setUsername] = useState("");
+
+  const [formUserData, setFormData] = useAtom(registrationAtom);
+
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [userName, setUsername] = useState<string>("");
   const [password, setPassword] = useState("");
+  const [mobile, setMobile] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [gender, setGender] = useState<string>("male");
+  const [dob, setDob] = useState(new Date());
+
+
+  const currentDate = new Date();
+  const dateCreated = currentDate.toISOString().split("T")[0];
+  const timeCreated = currentDate.toLocaleTimeString();
+
+  const userRegistrationPayload: FormData = {
+    firstName,
+    lastName,
+    userName,
+    mobile: Number(mobile),
+    email,
+    password,
+    gender,
+    birthday: dob,
+    dateCreated,
+    timeCreated,
+    isLoggedIn: false,
+    lastLoggedIn: null,
+  };
 
   const handleRegister = async () => {
-    if (!username || !password) {
-      Alert.alert("Validation Error", "Please fill out all fields.");
-      return;
-    }
-
-    try {
-     
-      Alert.alert("Success", "Registration complete!");
-      router.replace("/(app)/");
-    } catch (err) {
-      console.error(err);
-      Alert.alert("Error", "Registration failed.");
-    }
+    setFormData(userRegistrationPayload);
+ 
   };
 
   return (
@@ -35,10 +57,21 @@ export default function Register() {
         customTextStyle={styles.heading}
         lightColor="grey"
       />
+
       <View style={styles.inputGroup}>
         <AppTextInput
+          placeholder="First name"
+          value={firstName}
+          onChangeText={setFirstName}
+        />
+        <AppTextInput
+          placeholder="Last name"
+          value={lastName}
+          onChangeText={setLastName}
+        />
+        <AppTextInput
           placeholder="Username"
-          value={username}
+          value={userName}
           onChangeText={setUsername}
         />
         <AppTextInput
@@ -46,6 +79,24 @@ export default function Register() {
           secureTextEntry
           value={password}
           onChangeText={setPassword}
+        />
+        <AppDropdown
+          selectedValue={gender}
+          onValueChange={setGender}
+          options={[
+            { label: "Male", value: "male" },
+            { label: "Female", value: "female" },
+          ]}
+        />
+        <AppTextInput
+          placeholder="Mobile"
+          value={mobile}
+          onChangeText={setMobile}
+        />
+        <AppTextInput
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
         />
 
         <AppButton title="Register" onPress={handleRegister} />

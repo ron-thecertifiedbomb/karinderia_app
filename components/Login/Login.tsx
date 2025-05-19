@@ -93,10 +93,9 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontFamily: "FS Albert-Regular",
     lineHeight: fonts.heading.h4.lineHeight,
-    marginBottom: 16,
+    marginBottom: 12,
   },
   inputGroup: {
-    gap: 12,
     marginTop: 12,
     width: 300,
   },

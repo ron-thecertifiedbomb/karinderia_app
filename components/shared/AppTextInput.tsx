@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     errorWrapper: {
     color: "#e63946",
     fontSize: 13,
-    height: 32,
+    height: 28,
     paddingLeft: 5
 
   },

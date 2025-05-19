@@ -1,4 +1,3 @@
-// app/register.tsx
 import React, { useState } from "react";
 import { View, StyleSheet, Button, Alert } from "react-native";
 import { useRouter } from "expo-router";
@@ -10,11 +9,14 @@ import AppDropdown from "../shared/AppDropDown";
 import { useAtom, useSetAtom } from "jotai";
 import { registrationAtom } from "@/store/registration";
 import { FormData } from "@/interfaces/registration";
+import AppBirthdayDropdown from "../shared/AppBirthdayDropdown";
+import { genderList } from "./data";
 
 export default function Register() {
+
   const router = useRouter();
 
-  const [formUserData, setFormData] = useAtom(registrationAtom);
+  const setFormData = useSetAtom(registrationAtom);
 
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
@@ -23,9 +25,19 @@ export default function Register() {
   const [mobile, setMobile] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [gender, setGender] = useState<string>("male");
-  const [dob, setDob] = useState(new Date());
 
+  const today = new Date();
+  const [selectedDay, setSelectedDay] = useState(
+    today.getDate().toString().padStart(2, "0"),
+  );
+  const [selectedMonth, setSelectedMonth] = useState<number>(
+    today.getMonth() + 1,
+  );
+  const [selectedYear, setSelectedYear] = useState(
+    today.getFullYear().toString(),
+  );
 
+  const dob = new Date(`${selectedYear}-${selectedMonth}-${selectedDay}`);
   const currentDate = new Date();
   const dateCreated = currentDate.toISOString().split("T")[0];
   const timeCreated = currentDate.toLocaleTimeString();
@@ -47,17 +59,16 @@ export default function Register() {
 
   const handleRegister = async () => {
     setFormData(userRegistrationPayload);
- 
+
   };
 
   return (
-    <Container>
+    <Container style={styles.containerStyle}>
       <Label
         text="Register"
         customTextStyle={styles.heading}
         lightColor="grey"
       />
-
       <View style={styles.inputGroup}>
         <AppTextInput
           placeholder="First name"
@@ -83,10 +94,15 @@ export default function Register() {
         <AppDropdown
           selectedValue={gender}
           onValueChange={setGender}
-          options={[
-            { label: "Male", value: "male" },
-            { label: "Female", value: "female" },
-          ]}
+          options={genderList}
+        />
+        <AppBirthdayDropdown
+          selectedDay={selectedDay}
+          selectedMonth={selectedMonth}
+          selectedYear={selectedYear}
+          onDayChange={setSelectedDay}
+          onMonthChange={setSelectedMonth}
+          onYearChange={setSelectedYear}
         />
         <AppTextInput
           placeholder="Mobile"
@@ -106,6 +122,14 @@ export default function Register() {
 }
 
 const styles = StyleSheet.create({
+  containerStyle: {
+    alignContent: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+    paddingLeft: 40,
+    paddingRight: 40,
+  },
   heading: {
     fontSize: 22,
     marginBottom: 16,
@@ -113,6 +137,6 @@ const styles = StyleSheet.create({
   inputGroup: {
     gap: 12,
     marginTop: 12,
-    width: 300,
+    width: "100%",
   },
 });

@@ -3,18 +3,21 @@ import { View, StyleSheet, Text } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
 interface AppDropdownProps {
+  label?: string;
   selectedValue: string;
   onValueChange: (itemValue: string) => void;
   options: { label: string; value: string }[];
 }
 
 const AppDropdown: React.FC<AppDropdownProps> = ({
+  label,
   selectedValue,
   onValueChange,
   options,
 }) => {
   return (
     <View style={styles.container}>
+      {label && <Text style={styles.label}>{label}</Text>}
       <View style={styles.pickerWrapper}>
         <Picker
           selectedValue={selectedValue}
@@ -48,5 +51,6 @@ const styles = StyleSheet.create({
   picker: {
     height: 48,
     width: "100%",
+    fontSize: 10,
   },
 });

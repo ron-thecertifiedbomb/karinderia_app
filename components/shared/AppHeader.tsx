@@ -25,11 +25,13 @@ const AppHeader = () => {
         >
           <Icon name="arrow-left" size={24} color="black" type="Feather" />
         </Pressable>
-        <Label
-          lightColor="black"
-          customTextStyle={styles.heading4}
-          text={`Welcome ${user?.firstName ?? "User"}!`}
-        />
+        {isHome && (
+          <Label
+            lightColor="black"
+            customTextStyle={styles.heading4}
+            text={`Welcome ${user?.firstName ?? "User"}!`}
+          />
+        )}
       </>
       <AppButton title="Log out" onPress={() => {}} />
     </View>

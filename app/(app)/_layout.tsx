@@ -28,9 +28,7 @@ export default function RootLayout() {
     return <AppIntroAnimation onFinish={() => setIsFirstLaunch(false)} />;
   }
 
-  // Hide header for auth login and tabs routes
-  const route =
-    pathname === "/" || pathname.startsWith("/(tabs)");
+
 
   return (
     <>

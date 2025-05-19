@@ -1,30 +1,34 @@
 import { useEffect, useState } from "react";
-import { useAtom } from "jotai";
-import { allMenusAtom } from "@/store/menuAtom";
+import { useAtom, useSetAtom } from "jotai";
+import { allMenusAtom, isLoadingAtom } from "@/store/menuAtom";
 import { Menu } from "@/interfaces/menu";
+import { router } from "expo-router";
 
 const useGetAllMenu = () => {
-  const URL = "http://10.0.2.2:3001/menu"; 
-  const [, setData] = useAtom(allMenusAtom);
-  const [loading, setLoading] = useState(true);
+  const URL =
+    "https://nextjs-server-rho.vercel.app/api/karinderia/getAllMenu/route";
+  const setMenu = useSetAtom(allMenusAtom);
+  const [loading, setLoading] = useAtom(isLoadingAtom);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let isMounted = true; 
+    let isMounted = true;
 
     const fetchData = async () => {
       try {
         const response = await fetch(URL);
         if (!response.ok) throw new Error("Network response was not ok");
-
         const data: Menu[] = await response.json();
-        if (isMounted) setData(data);
+        if (isMounted) setMenu(data);
+        setLoading(false);
+        router.replace("/(app)/(tabs)/home");
       } catch (err) {
         if (isMounted) {
           setError(err instanceof Error ? err.message : "Unknown error");
         }
       } finally {
         if (isMounted) setLoading(false);
+        setLoading(false);
       }
     };
 
@@ -33,7 +37,7 @@ const useGetAllMenu = () => {
     return () => {
       isMounted = false;
     };
-  }, [setData]);
+  }, [setMenu]);
 
   return { loading, error };
 };

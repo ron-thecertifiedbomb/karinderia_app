@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "expo start",
-     "json-server": "json-server --watch db.json --port 3001",
+    "json-server": "json-server --watch db.json --port 3001",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
     "ios": "expo run:ios",
@@ -19,6 +19,9 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
+    "@react-native-async-storage/async-storage": "^2.1.2",
+    "@react-native-community/datetimepicker": "^8.3.0",
+    "@react-native-picker/picker": "^2.11.0",
     "@react-navigation/native": "^6.0.2",
     "expo": "~51.0.28",
     "expo-constants": "~16.0.2",

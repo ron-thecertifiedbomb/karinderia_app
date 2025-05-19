@@ -1,54 +1,67 @@
 import React from "react";
-import { FlatList, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context"; 
+import { FlatList, StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Label from "@/components/shared/Label";
 import { fonts } from "@/constants/Fonts";
+import Container from "./Container";
+import { Menu } from "@/interfaces/menu";
 
-interface ListProps {
-  data: any[]; 
-  renderItem: (item: any) => JSX.Element; 
+interface ListProps<T> {
+  data: T[];
+  renderItem: (info: { item: T }) => JSX.Element;
   title: string;
-  noDataMessage: string; 
+  noDataMessage: string;
 }
 
-const List = ({ data, renderItem, title, noDataMessage }: ListProps) => {
-
+const List = <T,>({ data, renderItem, title, noDataMessage }: ListProps<T>) => {
   if (data.length === 0) {
     return (
-      <SafeAreaView style={styles.safeArea}>
-        <Label lightColor="black" customTextStyle={styles.heading4} text={noDataMessage} />
-      </SafeAreaView>
+      <Container customStyle={styles.container}>
+        <Label
+          lightColor="black"
+          customTextStyle={styles.heading4}
+          text={noDataMessage}
+        />
+      </Container>
     );
   }
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <Label lightColor="black" customTextStyle={styles.heading4} text={title} />
+    <>
+    <View>
+        <Label
+        lightColor="black"
+        customTextStyle={styles.heading4}
+        text={title}
+      />
+    </View>
       <FlatList
         data={data}
-        keyExtractor={(item, index) => index.toString()} 
+        keyExtractor={(item, index) => index.toString()}
         renderItem={renderItem}
         contentContainerStyle={styles.list}
       />
-    </SafeAreaView>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
+
   heading4: {
     fontSize: 22,
     fontFamily: "FS Albert-Regular",
     lineHeight: fonts.heading.h4.lineHeight,
     marginBottom: 16,
+    fontWeight: 'bold',
     marginLeft: 10,
+    textAlign: 'center'
   },
   list: {
     padding: 16,
   },
+  container: {
+    padding: 0
+  }
 });
 
 export default List;

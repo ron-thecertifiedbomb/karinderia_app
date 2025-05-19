@@ -5,17 +5,17 @@ export type ContainerProps = ViewProps & {
   backgroundColor?: string;
   padding?: number;
   customStyle?: ViewStyle;
-  noFlex?: boolean; // Add this prop to conditionally exclude the default flex style
+  noFlex?: boolean; 
 };
 
 const Container: React.FC<ContainerProps> = ({
   customStyle,
-  backgroundColor = "#fff",
+  backgroundColor = 'transparent',
   padding = 16,
-  noFlex = false, // Default is false
+  noFlex = false, 
   ...rest
 }) => {
-  // Conditionally include/exclude the flex style
+ 
   const containerStyle = [
     styles.defaultContainer,
     !noFlex && styles.flexStyle,

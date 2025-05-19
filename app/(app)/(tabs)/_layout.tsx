@@ -1,9 +1,14 @@
 import React from "react";
+import { Tabs,  useRouter } from "expo-router";
 import Icon from "@/components/shared/Icon";
-import {  Tabs } from "expo-router";
+import { StyleSheet } from "react-native";
 
+import AppHeader from "@/components/shared/AppHeader";
 
 export default function TabsLayout() {
+  const router = useRouter();
+
+
 
   return (
     <Tabs
@@ -16,7 +21,13 @@ export default function TabsLayout() {
         name="home"
         options={{
           title: "Home",
-          headerShown: false,
+          headerShown: true,
+            headerLeft: () => <AppHeader />,
+          headerStyle: {
+         height: 100,
+            backgroundColor: "#fff",
+          },
+          
           tabBarIcon: ({ color, size }) => (
             <Icon name="home" size={size} color={color} type="AntDesign" />
           ),
@@ -26,7 +37,13 @@ export default function TabsLayout() {
         name="orders"
         options={{
           title: "Orders",
-          headerShown: false,
+          headerShown: true,
+            headerTitle: "", 
+          headerLeft: () => <AppHeader />,
+          headerStyle: {
+            height: 100, 
+            backgroundColor: "#fff",
+          },
           tabBarIcon: ({ color, size }) => (
             <Icon
               name="settings-outline"
@@ -40,3 +57,20 @@ export default function TabsLayout() {
     </Tabs>
   );
 }
+
+
+
+const styles = StyleSheet.create({
+  container: {
+   flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    alignContent: "center",
+    padding: 12,
+    width: '100%'
+  },
+ leftSection: {
+  flexDirection: 'row',
+  gap: 10
+ }
+});

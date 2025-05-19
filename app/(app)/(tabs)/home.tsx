@@ -71,7 +71,7 @@ const handleLogOut = async () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.topSection}>
+      {/* <View style={styles.topSection}>
         <Label
           lightColor="black"
           customTextStyle={styles.heading4}
@@ -82,7 +82,7 @@ const handleLogOut = async () => {
           onPress={confirmAndLogout}
           containerStyle={styles.buttonStyle}
         />
-      </View>
+      </View> */}
       <MenuList />
     </SafeAreaView>
   );

@@ -6,6 +6,7 @@ export interface FormData {
   mobile: number;
   email: string;
   password: string;
+  confirmPassword: string;
   gender: string;
   birthday: Date;
   dateCreated: string;

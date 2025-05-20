@@ -71,19 +71,7 @@ const handleLogOut = async () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.topSection}>
-        <Label
-          lightColor="black"
-          customTextStyle={styles.heading4}
-          text={`Welcome ${user?.firstName ?? "User"}!`}
-        />
-        <AppButton
-          title="Log out"
-          onPress={confirmAndLogout}
-          containerStyle={styles.buttonStyle}
-        />
-      </View>
-      <MenuList />
+ 
     </SafeAreaView>
   );
 };

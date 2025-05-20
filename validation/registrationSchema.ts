@@ -1,9 +1,19 @@
 import { z } from "zod";
 
+
+const nameRegex = /^[A-Za-z]+$/;
+
 export const registrationSchema = z
   .object({
-    firstName: z.string().min(1, "First name is required"),
-    lastName: z.string().min(1, "Last name is required"),
+     firstName: z
+      .string()
+      .min(1, "First name is required")
+      .regex(nameRegex, "First name must contain only letters"),
+    
+    lastName: z
+      .string()
+      .min(1, "Last name is required")
+      .regex(nameRegex, "Last name must contain only letters"),
     userName: z
       .string()
       .min(1, "Username is required")

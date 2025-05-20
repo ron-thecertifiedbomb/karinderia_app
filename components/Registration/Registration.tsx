@@ -89,7 +89,7 @@ export default function RegisterationForm() {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : undefined}
       keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
-      style={{ flex: 1, marginTop: 80 }}
+      style={{ flex: 1, marginTop: 60 }}
     >
       <ScrollView
         keyboardShouldPersistTaps="handled"

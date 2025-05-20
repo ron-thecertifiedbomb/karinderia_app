@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    marginBottom: 12,
+    marginBottom: 10,
+    marginLeft: 5
   },
   pickerWrapper: {
     borderWidth: 1,

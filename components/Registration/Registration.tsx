@@ -5,10 +5,10 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Alert,
 } from "react-native";
 import { useRouter } from "expo-router";
 import AppTextInput from "@/components/shared/AppTextInput";
-import Container from "@/components/shared/Container";
 import Label from "@/components/shared/Label";
 import AppButton from "../shared/AppButton";
 import AppDropdown from "../shared/AppDropDown";
@@ -17,7 +17,7 @@ import { registrationAtom } from "@/store/registration";
 import { FormData } from "@/interfaces/registration";
 import AppBirthdayDropdown from "../shared/AppBirthdayDropdown";
 import { genderList } from "./constant";
-import { registrationSchema } from "@/scripts/validation/registrationSchema";
+import { registrationSchema } from "@/validation/registrationSchema";
 
 export default function RegisterationForm() {
   const router = useRouter();
@@ -40,7 +40,7 @@ export default function RegisterationForm() {
   const [selectedYear, setSelectedYear] = useState(
     today.getFullYear().toString(),
   );
-
+  const [confirmPassword, setConfirmPassword] = useState("");
   const dob = new Date(`${selectedYear}-${selectedMonth}-${selectedDay}`);
   const currentDate = new Date();
   const dateCreated = currentDate.toISOString().split("T")[0];
@@ -56,6 +56,7 @@ export default function RegisterationForm() {
       mobile: Number(mobile),
       email,
       password,
+        confirmPassword,
       gender,
       birthday: dob,
       dateCreated,
@@ -85,16 +86,17 @@ export default function RegisterationForm() {
   };
 
   return (
-    <>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        style={{ flex: 1 }}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
+      style={{ flex: 1, marginTop: 80 }}
+    >
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.containerStyle}
       >
-        <ScrollView
-          contentContainerStyle={styles.containerStyle}
-          keyboardShouldPersistTaps="handled"
-        >
+        <View style={styles.formWrapper}>
           <Label
             text="Register"
             customTextStyle={styles.heading}
@@ -126,6 +128,13 @@ export default function RegisterationForm() {
               onChangeText={setPassword}
               error={formErrors.password}
             />
+            <AppTextInput
+              placeholder="Re-type Password"
+              secureTextEntry
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              error={formErrors.confirmPassword}
+            />
             <AppDropdown
               selectedValue={gender}
               onValueChange={setGender}
@@ -144,29 +153,36 @@ export default function RegisterationForm() {
               value={mobile}
               onChangeText={setMobile}
               error={formErrors.mobile}
+              keyboardType="phone-pad"
             />
             <AppTextInput
               placeholder="Email"
               value={email}
               onChangeText={setEmail}
               error={formErrors.email}
+              keyboardType="email-address"
+              autoCapitalize="none"
             />
             <AppButton title="Register" onPress={handleRegister} />
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   containerStyle: {
-    alignContent: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
     paddingLeft: 40,
     paddingRight: 40,
+    paddingVertical: 20,
+    flexGrow: 1,
+  },
+  formWrapper: {
+    width: "100%",
+    maxWidth: 400,
+    justifyContent: "center",
+    alignItems: "center",
   },
   heading: {
     fontSize: 22,

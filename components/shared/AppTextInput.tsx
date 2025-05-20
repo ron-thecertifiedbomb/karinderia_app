@@ -34,7 +34,7 @@ const AppTextInput: React.FC<AppTextInputProps> = ({ style, label, error, ...res
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginBottom: 1,
+    marginBottom: 8,
   },
   labelSpacing: {
     marginBottom: 4,

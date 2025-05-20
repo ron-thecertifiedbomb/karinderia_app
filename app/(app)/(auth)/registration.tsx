@@ -13,8 +13,8 @@ const RegistrationScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-     justifyContent: "center", // center vertically
-alignContent: 'center'
+    justifyContent: "center", 
+    alignContent: "center",
   },
 });
 

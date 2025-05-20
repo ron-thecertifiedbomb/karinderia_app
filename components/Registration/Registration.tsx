@@ -56,7 +56,7 @@ export default function RegisterationForm() {
       mobile: Number(mobile),
       email,
       password,
-        confirmPassword,
+      confirmPassword,
       gender,
       birthday: dob,
       dateCreated,
@@ -81,7 +81,6 @@ export default function RegisterationForm() {
       return;
     }
 
-    setFormErrors({});
     setFormData(userRegistrationPayload);
   };
 
